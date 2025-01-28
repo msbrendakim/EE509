@@ -10,7 +10,7 @@ The objective of today's hands-on activity is to provide a basic overview of R. 
 
 
 
-# Assignment
+# Assignmentsss
 
 For this activity you will turn in a Rmd file that shows your work.
 
@@ -245,7 +245,26 @@ To get new functions in packages that you do not currently have installed, you w
 
 5.	Subtract the month you were born from the remainder left after you divide the year you were born by the day you were born (show code)
 ```
+```{r}
+#1.	Evaluate the following:
+log(1)
+log(0)
+log(exp(1))
+log(-5)
+-log(5)
+log(1/5)
+```
+#g. How does R represent when the output of a function is not a number?
+When the output of a function is not a number, R represent it as NaN.
 
+#2.	Looking back at the Triginometry section, why are we multiplying the results of the atan and atan2 functions by 180/pi? 
+
+
+#3.	What is the difference between log and log10? (hint: use `help()`)
+
+#4.	Given a right triangle with sides x = 5 and y = 13, calculate the length of the hypotenuse (show code and use variables)
+
+#5.	Subtract the month you were born from the remainder left after you divide the year you were born by the day you were born (show code)
 
 ## R Scripts
 
