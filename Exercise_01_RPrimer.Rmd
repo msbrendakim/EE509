@@ -257,14 +257,30 @@ log(1/5)
 # g. How does R represent when the output of a function is not a number?
 When the output of a function is not a number, R represent it as NaN.
 
-# 2.	Looking back at the Triginometry section, why are we multiplying the results of the atan and atan2 functions by 180/pi?
+# 2. Looking back at the Triginometry section, why are we multiplying the results of the atan and atan2 functions by 180/pi?
+We are multiplying the results of the atan and atan2 functions by 180/pi since their output unit is radian. To get output with degree unit, we should multiply 180/pi to the radian value.
 
+# 3. What is the difference between log and log10? (hint: use `help()`)
+log calculates the natural logarithm ln, log base e, and log10 calculates log base 10.
 
-# 3.	What is the difference between log and log10? (hint: use `help()`)
+# 4. Given a right triangle with sides x = 5 and y = 13, calculate the length of the hypotenuse (show code and use variables)
+Using pythagorean theorem,
+```{r}
+x = 5
+y = 13
+hypotenuse = sqrt(x^2 + y^2)
+hypotenuse
+```
 
-# 4.	Given a right triangle with sides x = 5 and y = 13, calculate the length of the hypotenuse (show code and use variables)
-
-# 5.	Subtract the month you were born from the remainder left after you divide the year you were born by the day you were born (show code)
+# 5. Subtract the month you were born from the remainder left after you divide the year you were born by the day you were born (show code)
+```{r}
+month = 8
+year = 2002
+day = 8
+remainder = (year %% day)
+answer = remainder - month
+answer
+```
 
 ## R Scripts
 
@@ -314,6 +330,14 @@ Questions:
   - What is the difference between values in this sequence?
 9. What is the sum of the exponential of the sequence in question 8?
 ```
+
+# 6. Describe the difference in output between sum and cumsum.
+# 7.	Generate a sequence of even numbers from -6 to 6
+# 8.	Generate a sequence of values from -4.8 to -3.43 that is length 8 (show code)
+
+  - What is the difference between values in this sequence?
+  
+# 9. What is the sum of the exponential of the sequence in question 8?
 
 ## Loading and Saving Data
 
