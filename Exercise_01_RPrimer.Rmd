@@ -245,8 +245,8 @@ To get new functions in packages that you do not currently have installed, you w
 
 5.	Subtract the month you were born from the remainder left after you divide the year you were born by the day you were born (show code)
 ```
+### 1.	Evaluate the following:
 ```{r}
-#1.	Evaluate the following:
 log(1)
 log(0)
 log(exp(1))
@@ -254,16 +254,16 @@ log(-5)
 -log(5)
 log(1/5)
 ```
-# g. How does R represent when the output of a function is not a number?
+### g. How does R represent when the output of a function is not a number?
 When the output of a function is not a number, R represent it as NaN.
 
-# 2. Looking back at the Triginometry section, why are we multiplying the results of the atan and atan2 functions by 180/pi?
+### 2. Looking back at the Triginometry section, why are we multiplying the results of the atan and atan2 functions by 180/pi?
 We are multiplying the results of the atan and atan2 functions by 180/pi since their output unit is radian. To get output with degree unit, we should multiply 180/pi to the radian value.
 
-# 3. What is the difference between log and log10? (hint: use `help()`)
+### 3. What is the difference between log and log10? (hint: use `help()`)
 log calculates the natural logarithm ln, log base e, and log10 calculates log base 10.
 
-# 4. Given a right triangle with sides x = 5 and y = 13, calculate the length of the hypotenuse (show code and use variables)
+### 4. Given a right triangle with sides x = 5 and y = 13, calculate the length of the hypotenuse (show code and use variables)
 Using pythagorean theorem,
 ```{r}
 x = 5
@@ -272,7 +272,7 @@ hypotenuse = sqrt(x^2 + y^2)
 hypotenuse
 ```
 
-# 5. Subtract the month you were born from the remainder left after you divide the year you were born by the day you were born (show code)
+### 5. Subtract the month you were born from the remainder left after you divide the year you were born by the day you were born (show code)
 ```{r}
 month = 8
 year = 2002
@@ -331,13 +331,32 @@ Questions:
 9. What is the sum of the exponential of the sequence in question 8?
 ```
 
-# 6. Describe the difference in output between sum and cumsum.
-# 7.	Generate a sequence of even numbers from -6 to 6
-# 8.	Generate a sequence of values from -4.8 to -3.43 that is length 8 (show code)
+### 6. Describe the difference in output between sum and cumsum.
+sum calculates the total sum of all values in a vector, returning a single number. 
+cumsum calculates the cumulative sum at each step, returning a vector of partial sums.
 
+### 7.	Generate a sequence of even numbers from -6 to 6
+```{r}
+seq_even_num <- seq(-6, 6, by = 2)
+seq_even_num
+```
+
+### 8.	Generate a sequence of values from -4.8 to -3.43 that is length 8 (show code)
+```{r}
+seq_values <- seq(-4.8, -3.43, length = 8)
+seq_values
+```
   - What is the difference between values in this sequence?
+```{r}
+difference <- seq_values[2] - seq_values[1]
+difference
+```
   
-# 9. What is the sum of the exponential of the sequence in question 8?
+### 9. What is the sum of the exponential of the sequence in question 8?
+```{r}
+sum_exp <- sum(exp(seq_values))
+sum_exp
+```
 
 ## Loading and Saving Data
 
@@ -400,6 +419,16 @@ Question:
 11. Save the vector `x` to a new csv file
 ```
 
+### 10. Use R commands (e.g., do not click "import dataset" and use the dialog there) to read in the file `met_hourly.csv` and assign it the variable name `met`
+```{r}
+met <- read.csv("data/met_hourly.csv")
+```
+
+### 11. Save the vector `x` to a new csv file
+```{r}
+x = 1:10
+write.table(x, "x_vector.csv", row.names = FALSE, col.names = FALSE, sep = ",")
+```
 
 ## Data types and dimensions
 
@@ -476,6 +505,20 @@ Questions:
 13.	Show the 3rd through 8th rows of the 1st  though 3rd columns
 14.	Show just the odd numbered rows in the frog data. Write this code for the GENERAL CASE (i.e. don’t just type c(1,3,5,…) but use functions that you learned in previous sections to set up the sequence.
 ```
+### 12. Show just the spots data as characters
+```{r}
+as.character(dat$spots)
+```
+
+### 13.	Show the 3rd through 8th rows of the 1st  though 3rd columns
+```{r}
+dat[3:8, 1:3]
+```
+
+### 14.	Show just the odd numbered rows in the frog data. Write this code for the GENERAL CASE (i.e. don’t just type c(1,3,5,…) but use functions that you learned in previous sections to set up the sequence.
+```{r}
+dat$frogs[seq(1, nrow(dat), by = 2)]
+```
 
 ## Combining vectors
 
@@ -506,10 +549,13 @@ rbind(q,p)		# bind as rows
 
 **cbind** and **rbind** can also be applied to existing data frames, for example to add another column to an existing data frame or to take two data sets with the same columns and bind them together by row to make a larger data set.
 
-
 ```
 Question:
 15.	Create a character vector that contains the names of 4 people you admire.
+```
+### 15. Create a character vector that contains the names of 4 people you admire.
+```{r}
+people_admired = c("Taylor Swift", "Bill Gates", "Barack Obama", "Malala Yousafzai")
 ```
 
 ## Logical operators and indexing
@@ -669,14 +715,33 @@ head(foo)
 
 In this instance, when used alone both functions took the dataset as the first arguement and then additional information as the second argument. Here, the first argument is implicit and one only needs to use specify the second. An important thing to remember about pipes is that they will _always_ pass in the *first* argument in a function.
 
-```
+
 Question
-16.	**Using the frog data set and either base or dplyr functions:**
-*  a.	display just the rows where frogs have spots
-*  b.	display just the rows where frogs are blue
-*  c.	create a new object containing just the rows where there are between 3 and 5 tadpoles
-*  d.	display just the rows where there are less than 2.5 red frogs
-*  e.	display where either frogs do not have spots or there are more than 5 frogs
+### 16.	**Using the frog data set and either base or dplyr functions:**
+#### a.	display just the rows where frogs have spots
+```{r}
+dat[dat$spots == TRUE, ]
+```
+
+#### b.	display just the rows where frogs are blue
+```{r}
+dat[dat$color == "blue", ]
+```
+
+#### c.	create a new object containing just the rows where there are between 3 and 5 tadpoles
+```{r}
+tadpoles_3to5 <- dat[dat$tadpoles >= 3 & dat$tadpoles <= 5, ]
+tadpoles_3to5
+```
+
+#### d.	display just the rows where there are less than 2.5 red frogs
+```{r}
+dat[dat$frogs < 2.5, ]
+```
+
+#### e.	display where either frogs do not have spots or there are more than 5 frogs
+```{r}
+dat[dat$spots == FALSE | dat$frogs > 5, ]
 ```
 
 ## Plots, tables, and exploratory analysis
@@ -757,6 +822,15 @@ head(met)
 Question
 17. **Use dplyr to calculate the *daily* mean air temperature**
 ```
+### 17. Use dplyr to calculate the daily mean air temperature
+```{r}
+daily_mean_temp <- met |>
+  mutate(date = as.Date(time, tz = "GMT")) |> # convert from time to date
+  group_by(date) |> 
+  summarise(mean_air_temp = mean(AirTemp)) 
+
+head(daily_mean_temp)
+```
 
 # Plotting & visualization
 
@@ -779,11 +853,23 @@ The functions **lines** and **points** are also frequently used to add additiona
 
 Within the Plot window, graphs can be cut-and-pasted into other documents or saved to file fairly simply by using Export. If you want to automate the process of exporting graphics, for example when you generate a whole bunch of figures at once and don’t want to Export each one by hand, you'll want to use the graphical functions such as 'postscript', 'pdf', or 'tiff'. For all of these plot functions there are numerous additional (optional) arguments that control the formatting of the plots. The help for par (i.e. ?par) gives a fairly detailed list of these options, some of which you will see in further examples below.
 
+
+
+###  18.	Plot a histogram of blue frogs
+```{r}
+blue_frogs <- dat$frogs[dat$color == "blue"]
+
+hist(blue_frogs, xlab = "Number of Frogs", col = "blue")
 ```
-Questions
-  18.	Plot a histogram of blue frogs
-  19. Plot shortwave (solar) radiation against time
-  20. Plot shortwave (solar) radiation against relative humidity
+
+###  19. Plot shortwave (solar) radiation against time
+```{r}
+plot(met$time, met$ShortWave)
+```
+
+###  20. Plot shortwave (solar) radiation against relative humidity
+```{r}
+plot(met$ShortWave, met$RelativeHumidity)
 ```
 
 ## Tidyverse
@@ -799,11 +885,8 @@ esquisse::esquisser()         ## launch tool
 ```
 Once the tool launches use it to answer the following question. Note that you won't be able to type here while the tool is running, so you may want to copy the questions, and your answers, to another doc temporarily.
 
-
-```
-Question
-
-21. Histogram
+### Question
+### 21. Histogram
 * Select “met” as the data.frame
 * Click “validate imported data”
 * Drag AirTemp into the Y box (which will initially cause the tool to draw a histogram)
@@ -813,11 +896,41 @@ Question
 * Click on Export & code and hit “insert code into script” to add the code for this figure
 * When you do this you’ll see a lot of new syntax. First, the `%>%` is known as the _pipe operator_ and is used string together multiple functions. So here we see that we start with the met data, then we filter it based upon time, then we call ggplot(). After we call ggplot we see that the different parts of the figure are added together using a `+`. First, we use `aes` (aesthetic) to select the data being used. Then `geom_histogram` is called to plot a histogram, with additional arguments for the number of bins and the fill color (in this case specified using a hexadecimal color code). Next, we see axis labels being set using the `labs` command. Finally we see the theme that’s been applied.
 * Turn in the code for drawing your histogram
+```{r}
+library(ggplot2)
+library(dplyr)
 
-22. Line/scatter plot
+met %>%
+ filter(time >= "2013-06-04 00:00:00" & time <= "2013-08-27 00:00:00") %>%
+ ggplot() +
+  aes(x = AirTemp) +
+  geom_histogram(bins = 30L, fill = "#FD2D95") +
+  labs(
+    x = "Air Temperature (°C)",
+    y = "Frequency",
+    title = "Histogram of Air Temperature",
+    subtitle = "During Summer 2013"
+  ) +
+  theme_bw()
+```
+
+### 22. Line/scatter plot
 * Returning to the ggplot builder, next drag “time” into the X box, which should turn the plot into a time series line plot.
 * As before you can play with label, plot options, data filtering, etc
 * Export this code to your Rmd as well and briefly explain (in text) what has changed in your code from the histogram plot
+```{r}
+met %>%
+ filter(time >= "2013-06-04 00:00:00" & time <= "2013-08-27 00:00:00") %>%
+ ggplot() +
+  aes(x = time, y = AirTemp) +
+  geom_line(colour = "#228B22") +
+  labs(
+    x = "Time",
+    y = "Air Temperature (°C)",
+    title = "Air Temperature Over Time",
+    subtitle = "During Summer 2013"
+  ) +
+  theme_bw()
 ```
 
 ## Classical tests
@@ -846,7 +959,6 @@ anov1 = aov(tadpoles ~ color + spots + color*spots,data=dat)
 summary(anov1)
 ```
 
-
 Finally, we can get a bit more sophisticated in our graphs to display these results. Note that R doesn’t care about white space—you can add spaces, tabs, and/or carriage returns wherever you want to make your code more readable.
 
 ```{r}
@@ -870,11 +982,24 @@ legend("topleft",
        )
 ```
 
+###Question
+### 23.	Using the frog data
+####a.	Fit a linear model of tadpoles as a function of frogs for just the RED individuals and report the summary data of the fit.  
+```{r}
+red_frogs <- dat[dat$color == "red", ]
+
+lm_red <- lm(tadpoles ~ frogs, data = red_frogs)
+summary(lm_red)
 ```
-Question
-23.	Using the frog data
-  a.	Fit a linear model of tadpoles as a function of frogs for just the RED individuals and report the summary data of the fit.  
-  b.	Make a scatter plot of this data that includes the regression line
+
+####b.	Make a scatter plot of this data that includes the regression line
+```{r}
+plot(red_frogs$frogs, red_frogs$tadpoles, 
+     main = "Scatter plot of red frogs' data", 
+     xlab = "Number of Frogs", 
+     ylab = "Number of Tadpoles", 
+     col = "red", pch = 16)
+abline(lm_red, lwd = 2)
 ```
 
 ## IF statements
@@ -922,9 +1047,23 @@ ifelse(dat$frogs>0, log(dat$frogs),log(-dat$frogs))
 
 Aside: As is very common in R, as we learn more we often find more efficient ways of solving problems . For example, the above is equivalent to log(abs(dat$frogs))
 
-```
-Question
-24.	Write an if statement that makes a scatter plot of x if all the values are positive, and plots a histogram otherwise.
+
+### Question
+### 24.	Write an if statement that makes a scatter plot of x if all the values are positive, and plots a histogram otherwise.
+```{r}
+x <- c(2, 4, 6, 8, 10)
+if (min(x) > 0) {
+  plot(x, seq_along(x), 
+       main = "Scatter Plot of x",
+       xlab = "x values", 
+       ylab = "Index",
+       pch = 16, col = "blue")
+} else {
+  hist(x, 
+       main = "Histogram of x",
+       xlab = "x values", 
+       col = "red", border = "black")
+}
 ```
 
 ## Defining custom functions
@@ -957,11 +1096,26 @@ my.division(y,x)
 my.division(x,"5")
 ```
 
+### Question
+### 25.	Convert the more complicated graphing example at the end of  “Classic Tests” into a function that will make the same plots for any data set. Show how you would call the function passing it just the subset of data where there are 5 or more tadpoles.
+```{r}
+custom_plot <- function(data, x_col, y_col) {
+  model <- lm(data[[y_col]] ~ data[[x_col]], data = data)
+  plot(data[[x_col]], data[[y_col]],
+       xlab=x_col,
+       ylab=y_col)
 
+  abline(model)
+  
+  return(summary(model))
+}
 ```
-Question
-25.	Convert the more complicated graphing example at the end of  “Classic Tests” into a function that will make the same plots for any data set. Show how you would call the function passing it just the subset of data where there are 5 or more tadpoles.
+
+```{r}
+subset_data <- dat[dat$tadpoles >= 5, ]
+custom_plot(subset_data, "frogs", "tadpoles")
 ```
+
 
 ## For loops
 
@@ -995,9 +1149,17 @@ for(t in 2:NT){
 plot(N)
 ```
 
-```
-Question
-26.	Starting with a vector x = 1:10, write a for loop that adds 5 to each value in the vector. Note that it is permissible to assign an element in a vector to itself (e.g. x[i] = x[i] + 5)
+
+### Question
+### 26.	Starting with a vector x = 1:10, write a for loop that adds 5 to each value in the vector. Note that it is permissible to assign an element in a vector to itself (e.g. x[i] = x[i] + 5)
+```{r}
+x = 1:10
+
+for( i in x){
+  x[i] = x[i] + 5
+}
+
+print(x)
 ```
 
 ## Vector and Matrix Math
