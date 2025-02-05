@@ -1,0 +1,40 @@
+---
+title: "Homework_01"
+author: "Minseo Brenda Kim"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### You want to know the density of fish in a set of experimental ponds, and you observe the following counts in ten ponds: 5,6,7,3,6,5,8,4,4,3
+```{r}
+fish_counts = c(5,6,7,3,6,5,8,4,4,3)
+```
+
+#### What is your process model?
+Poisson process : the number of fish in each pond is independent and follows a Poisson distribution.
+
+$f(x) = \lambda$,  $X_i$ ~ Pois$(\lambda)$ where $\lambda$ is the average fish density per pond.
+
+#### What is your data model?
+Since the data consists of non-negative values, the appropriate model is a Poisson distribution.
+
+$X_i$ ~ Pois$(\lambda)$ where $\lambda$ is the parameter representing the mean number of fish per pond.
+
+#### Solve for the analytical MLE
+The likelihood function for the Poisson distribution is: $L(\lambda) = \prod_{i=1}^{n} P(X_i | \lambda) = \prod_{i=1}^{n} \frac{\lambda^{X_i} e^{-\lambda}}{X_i!}$
+
+The log-likelihood is: $\log L(\lambda) = \sum_{i=1}^{n} \left( X_i \log \lambda - \lambda - \log X_i! \right)$
+
+Taking the derivative of the log-likelihood with respect to $\lambda$ and setting it to zero gives: $\frac{\partial \log L(\lambda)}{\partial \lambda} = \sum_{i=1}^{n} \frac{X_i}{\lambda} - n = 0$, 
+
+then solving for $\lambda$: $\lambda_{MLE} = \frac{1}{n} \sum_{i=1}^{n} X_i = \bar{X}$
+
+#### What is the estimate for this population?
+Since the maximum likelihood estimate is $\bar{X}$, the sample, mean, the estimate for this population is:
+```{r}
+lambda_mle <- mean(fish_counts)
+lambda_mle
+```
