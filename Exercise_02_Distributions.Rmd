@@ -1,6 +1,6 @@
 ---
 title: 'Lab 2: Probability distributions'
-author: "GE509"
+author: "Minseo Brenda Kim"
 output: html_document
 ---
 
@@ -204,10 +204,31 @@ lines(x,dunif(x,-3,3),col=2)
 ```
 
 ### Lab questions: 
-```
+
 1. Why does the height of the uniform PDF change as the width changes?
+
+The height of the uniform PDF changes as the width of the distribution changes because the total probability must sum to 1. For a uniform distribution \( U(a, b) \), the probability density function (PDF) is:
+
+\[
+f(x) = \frac{1}{b - a}, \quad a \leq x \leq b
+\]
+
+Since probability must sum to 1:
+
+\[
+\int_a^b f(x) \, dx = 1
+\]
+
+\[
+\frac{1}{b-a} (b-a) = 1
+\]
+
+From this, we see that if the width \( b-a \) increases, the height \( \frac{1}{b-a} \) must decrease. If the width decreases, the height increases.
+
+
 2. What do the second and third arguments to the uniform specify? What are their default values?
-```
+
+The second and third arguments to the uniform are `min` and `max` each. `min` specifies the lower bound of the uniform distribution, and `max` specifies the upper bound of the uniform distribution. Their default values are $min = 0$, $max = 1$.
 
 ### Beta
 
@@ -242,12 +263,30 @@ lines(p,dbeta(p,3,3),col=2)
 ```
 
 ### Lab questions
+
+3. The Beta has a special case, Beta(1,1) that is equivalent to what other PDF?
+  
+The Beta distribution has a special case where \( Beta(1,1) \) is equivalent to the Uniform(0,1) distribution, $Beta(1,1) = Uniform(0,1)$. 
+
+This is because the Beta distribution formula simplifies to: $Beta(x \mid 1,1) \propto x^{1-1} (1-x)^{1-1} = x^0 (1-x)^0 = 1$, which is exactly the PDF of a uniform distribution over \([0,1]\).
+
+4. In the first panel, the mean is the same for each line (0.5).  What are the variances? (Hint: Calculate this analytically. Look up the distribution in one of the recommended references.)
+
+The variance of a Beta(α, β) distribution is given by $Var(X) = \frac{\alpha \beta}{(\alpha + \beta)^2 (\alpha + \beta + 1)}$.
+
+In the first panel, we know the mean is 0.5, which means \( \alpha = \beta \). In terms of \( \alpha \), the variance is: $Var(X) = \frac{\alpha^2}{(2\alpha)^2 (2\alpha + 1)} = \frac{\alpha}{4\alpha^2 (2\alpha + 1)} = \frac{1}{4(2\alpha + 1)}$.
+
+Thus, as \( \alpha \) increases, the variance decreases.
+
+5. In the second panel, what are the means and medians of each of these curves?  (Hint: you'll need to calculate the mean analytically and use one of the variants of R's beta function to find the median.)
+
+I'll use `qbeta()` function to find the median:
+
+```{r}
+medians <- qbeta(0.5, c(6,6,6,6,6,6), c(6,4,2,1.25,1,0.25))
+medians
 ```
-Lab questions: 
-  3) The Beta has a special case, Beta(1,1) that is equivalent to what other PDF?
-  4) In the first panel, the mean is the same for each line (0.5).  What are the variances? (Hint: Calculate this analytically. Look up the distribution in one of the recommended references.)
-  5) In the second panel, what are the means and medians of each of these curves?  (Hint: you'll need to calculate the mean analytically and use one of the variants of R's beta function to find the median.)
-```
+
 
 ### Log Normal
 
@@ -290,9 +329,44 @@ lines(x,dlnorm(x,2,1),col=4)
 ```
 
 ### Lab questions
-```
-6) What are the arithmetric and geometric means of the three curves in the first panel? (Reminder: arithmetic means are means in the linear domain, geometric means are means in the log domain)
-```
+
+6. What are the arithmetric and geometric means of the three curves in the first panel? (Reminder: arithmetic means are means in the linear domain, geometric means are means in the log domain)
+
+Arithmetic mean: $E[X] = e^{\mu + \frac{1}{2} \sigma^2}$
+
+Geometric mean: $G[X] = e^{\mu}$
+
+For three curves:
+
+1. **\( LogNormal(0,1) \)**
+   - Arithmetic Mean:  
+     \[
+     E[X] = e^{0 + \frac{1}{2} (1)^2} = e^{0.5} \approx 1.648
+     \]
+   - Geometric Mean:  
+     \[
+     G[X] = e^0 = 1
+     \]
+
+2. **\( LogNormal(1,1) \)**
+   - Arithmetic Mean:  
+     \[
+     E[X] = e^{1 + \frac{1}{2} (1)^2} = e^{1.5} \approx 4.482
+     \]
+   - Geometric Mean:  
+     \[
+     G[X] = e^1 = 2.718
+     \]
+
+3. **\( LogNormal(2,1) \)**
+   - Arithmetic Mean:  
+     \[
+     E[X] = e^{2 + \frac{1}{2} (1)^2} = e^{2.5} \approx 12.182
+     \]
+   - Geometric Mean:  
+     \[
+     G[X] = e^2 = 7.389
+     \]
 
 ## Exponential & Laplace
 
@@ -322,9 +396,10 @@ lines(x,dnorm(x,5),col=2)
 ```
 
 ### Lab questions:
-``` 
-7) The last two panels compare a normal and a Laplace distribution with the same mean and variance.  How do the two distributions compare?  In particular, compare the difference in the probabilities of extreme events in each distribution.
-```
+
+7. The last two panels compare a normal and a Laplace distribution with the same mean and variance.  How do the two distributions compare?  In particular, compare the difference in the probabilities of extreme events in each distribution.
+
+The probability of extreme values is much higher in the Laplace distribution than in the normal distribution. In the normal distribution, probabilities decay quadratically in the exponent. On the other hand, in the Laplace distribution, probabilities decay linearly in the exponent, leading to higher potential outliers. Also, in the graphs of the last two panels, the laplace distribution (black line) has harper peaks at the mean, and the normal distribution (red line) has a more gradual decay.
 
 ## Gamma
 
@@ -374,9 +449,16 @@ shape
 ```
 
 ### Lab questions:
-``` 
-8) Looking at the 'change variance' figure, how does the variance change as a and r increase? Qualitatively, how does this affect the mode and skew? Quantitatively, how does this affect the median (relative to the mean)?
-```
+
+8. Looking at the 'change variance' figure, how does the variance change as a and r increase? Qualitatively, how does this affect the mode and skew? Quantitatively, how does this affect the median (relative to the mean)?
+
+In the gamma distribution, variance is determined by the shape parameter alpha and the rate parameter r. Specifically, the variance is given by the formula alpha divided by the square of r. This means that increasing alpha leads to a higher variance, while increasing r decreases the variance. 
+
+When variance increases, the shape of the gamma distribution changes. A higher variance makes the distribution more spread out, while a lower variance results in a more concentrated peak. The mode is calculated as alpha minus one, divided by r, meaning that when alpha increases, the mode shifts to the right, and when r increases, the mode moves to the left. Skewness is inversely related to the square root of alpha: when alpha is small, the distribution is highly skewed to the right, and when alpha increases, the distribution becomes more symmetric, reducing skewness.
+
+The median of the gamma distribution is always slightly lower than the mean because of its positive skew. The difference between the median and the mean is greater when variance is high. When variance is low and the distribution becomes more symmetric, the median moves closer to the mean. 
+
+Thus, increasing alpha generally makes the distribution wider and less skewed, while increasing r makes it more concentrated and shifts the mode to smaller values.
 
 # Part 2: Discrete distributions
 
@@ -421,9 +503,9 @@ legend("topright",legend=c("sample","pmf"),lty=1,col=1:2)
 ```
 
 ### Lab questions:
-```
-9)  Consider a binomial distribution that has a constant mean, np.  What are the differences in the shape of this distribution if it has a high n and low p vs. a low n and high p?
-```
+9. Consider a binomial distribution that has a constant mean, np.  What are the differences in the shape of this distribution if it has a high n and low p vs. a low n and high p?
+
+When n is large and p is small, the distribution becomes more skewed. Conversely, when n is small and p is high, the distribution shifts towards the higher end of the range and becomes more symmetric, which looks similar to normal distribution. 
 
 ## Poisson
 
@@ -451,12 +533,30 @@ legend("topright",legend=c("pois","norm","binom"),col=1:3,lty=1)
 The last two panels depict a comparison of the Poisson, Normal, and Binomial with the same mean and a large sample size.  The Poisson and Binomial are identical in the two figures but in the first the normal has the same variance as the Poisson and the second it is the same as the binomial.
 
 ### Lab questions:
-```
-10)  Normal distributions are often applied to count data even though count data can only take on positive integer values.  Is this fair is this to do in these two examples? (i.e. how good is the normal approximation)
-11) Would the normal be a fair approximation to the Poisson curves for small numbers (the first panel)? How about for the Bionomial for small numbers (earlier panel of figures on the Binomial)?
-12) Is the Poisson a good approximation of the Binomial?
-13) Is it possible to choose the parameters so that the Poisson and Binomial to both have the same mean and  variance?  If so what is this parameterization?
-```
+10. Normal distributions are often applied to count data even though count data can only take on positive integer values.  Is this fair is this to do in these two examples? (i.e. how good is the normal approximation)
+
+The normal distribution is often used to approximate count data, even though count data consists only of positive integer values. In the last two panels, we see that the Poisson, Binomial, and Normal distributions are compared with the same mean. When the variance of the normal distribution is matched to the Poisson, the fit is reasonable, but there are visible discrepancies in the tails. When the variance of the normal distribution is matched to the Binomial, the fit is more accurate, which means that using a normal approximation is reasonable for count data when the sample size is large and the variance is not too high, but it may not be a perfect fit for highly skewed or low-variance cases.
+
+11. Would the normal be a fair approximation to the Poisson curves for small numbers (the first panel)? How about for the Bionomial for small numbers (earlier panel of figures on the Binomial)?
+
+In the first panel, where Poisson distributions with small means are plotted, it is evident that the normal approximation would not be very accurate. The Poisson distribution is heavily skewed when the mean is small, with most of its probability mass concentrated near zero. The normal distribution, which is symmetric, does not capture this skewness well, making it a poor approximation for Poisson-distributed count data with small values.
+
+Similarly, for the earlier binomial distribution figures, if n is small or p is close to 0 or 1, the binomial distribution also becomes skewed, making the normal approximation inaccurate. The normal distribution works best when n is large and p is moderate (around 0.5), which results in a symmetric shape.
+
+12. Is the Poisson a good approximation of the Binomial?
+
+Yes, when the number of trials, n, is large, and the probability of success, p, is small. 
+
+13. Is it possible to choose the parameters so that the Poisson and Binomial to both have the same mean and  variance?  If so what is this parameterization?
+
+It is possible to choose parameters so that the Poisson and Binomial distributions have the same mean and variance. The mean of a Binomial distribution is given by np, and its variance is np(1-p). The mean and variance of a Poisson distribution are both equal to lambda.
+
+To match the mean and variance of the Poisson and Binomial distributions:
+
+- The mean: \( \lambda = np \)
+- The variance: \( \lambda = np(1-p) \)
+
+Since the Poisson variance is equal to the mean, these conditions can only hold if p is small, making \( 1 - p \) approximately 1. In other words, Thus, for large \( n \) and small \( p \), the Poisson closely approximates the Binomial when \( \lambda = np \).
 
 ## Negative binomial
 
@@ -502,7 +602,23 @@ lines(x,dnbinom(x,1,0.15),type="s",col=4,lty=2)
 
 
 ### Lab questions:
-``` 
-14)  In the 'vary size' panel, what are the means of the curves? 
-15) In the “vary variance” panel, how does the shape of the Negative Binomial compare to a Poisson with the same mean?
-```
+14. In the 'vary size' panel, what are the means of the curves? 
+
+In the "vary size" panel, where r takes values 1, 2, 3, 5, and 10, and p is fixed at 0.5, the means are:
+
+- For r = 1: \( E[X] = \frac{1(0.5)}{0.5} = 1 \)
+- For r = 2: \( E[X] = \frac{2(0.5)}{0.5} = 2 \)
+- For r = 3: \( E[X] = \frac{3(0.5)}{0.5} = 3 \)
+- For r = 5: \( E[X] = \frac{5(0.5)}{0.5} = 5 \)
+- For r = 10: \( E[X] = \frac{10(0.5)}{0.5} = 10 \)
+
+15. In the “vary variance” panel, how does the shape of the Negative Binomial compare to a Poisson with the same mean?
+
+In the "vary variance" panel, the Negative Binomial distribution is compared to a Poisson distribution with the same mean. It differs:
+
+- The Poisson distribution has variance equal to its mean, making it narrower.
+- The Negative Binomial has a larger variance, causing a wider and more dispersed shape.
+
+As variance increases, the Negative Binomial becomes more right-skewed, reflecting greater variability.
+
+
