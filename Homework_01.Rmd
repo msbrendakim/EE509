@@ -33,7 +33,7 @@ Taking the derivative of the log-likelihood with respect to $\lambda$ and settin
 then solving for $\lambda$: $\lambda_{MLE} = \frac{1}{n} \sum_{i=1}^{n} X_i = \bar{X}$
 
 #### What is the estimate for this population?
-Since the maximum likelihood estimate is $\bar{X}$, the sample, mean, the estimate for this population is:
+Since the maximum likelihood estimate is $\bar{X}$, the sample mean, the estimate for this population is:
 ```{r}
 lambda_mle <- mean(fish_counts)
 lambda_mle
